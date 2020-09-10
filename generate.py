@@ -24,20 +24,21 @@ def pick_random(last):
 def print_sentence(i):
     result = i.split()
 
-    if (n := pick_random(result[-1])) == None:
-        print('bad input')
+    next_word = pick_random(result[-1])
+    if next_word is None:
+        print('starter not found')
 
     else:
-        result.append(n)
-        while n != None and (n not in '.!?' or len(result) < 15):
+        result.append(next_word)
+        while next_word != None and (next_word not in '.!?' or len(result) < 15):
             if len(result) > 50:
                 result.append('.')
                 break
 
-            n = pick_random(n)
+            next_word = pick_random(next_word)
 
-            if n != None:
-                result.append(n)
+            if next_word is not None:
+                result.append(next_word)
         s = ''
         
         for w in result:
@@ -45,11 +46,10 @@ def print_sentence(i):
 
         print(s[1:] + '\n')
 
-while (i := input(
-        'Enter starter(.QUIT to exit, .RANDOM for random): ')) != '.QUIT':
+while (i := input('Enter starter (".q" to exit, ".r" for random): ')) != '.q':
     
-    if i == '.RANDOM':
-        i =  random.choice(list(markov.keys()))
+    if i == '.r':
+        i =  random.choice(markov.keys())
 
     if len(i) == 0:
         print('no input. try again')
